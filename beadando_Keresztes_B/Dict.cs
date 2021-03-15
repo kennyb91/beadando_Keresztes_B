@@ -59,7 +59,7 @@ namespace beadando_Keresztes_B
 
             concdictionary.TryAdd("torlesre", 22);
             int removedItem;
-            bool r1 = concdictionary.TryRemove("torlesre", out removedItem);
+            concdictionary.TryRemove("torlesre", out removedItem);
             Console.WriteLine("A törölt Value :" + removedItem + "\n");
             Console.WriteLine("ConcurentDictionary elemei: \n");
             foreach (var item in concdictionary)
