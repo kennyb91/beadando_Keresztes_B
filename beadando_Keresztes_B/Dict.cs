@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace beadando_Keresztes_B
 {
-    public class Dict {
+    public class Dict
+    {
 
         static Dictionary<string, int> dictionary = new Dictionary<string, int>();
         static ConcurrentDictionary<string, int> concdictionary = new ConcurrentDictionary<string, int>();
@@ -61,7 +62,8 @@ namespace beadando_Keresztes_B
             bool r1 = concdictionary.TryRemove("torlesre", out removedItem);
             Console.WriteLine("A törölt Value :" + removedItem + "\n");
             Console.WriteLine("ConcurentDictionary elemei: \n");
-            foreach (var item in concdictionary) {
+            foreach (var item in concdictionary)
+            {
                 Console.WriteLine(item.Key + " - " + item.Value);
             }
 
@@ -81,7 +83,7 @@ namespace beadando_Keresztes_B
 
             Eredmenyek.Kiir();
             Program.Form();
-            
+
             Program.FileWrite wr = new Program.FileWrite();
             wr.WriteData();
 
@@ -89,16 +91,21 @@ namespace beadando_Keresztes_B
             rd.ReadData();
             Console.WriteLine("Sleep timer 5000 millisec indítva.");
             Thread.Sleep(5000);
-            
+
         }
 
 
-        public static void Iterate() {
+        public static void Iterate()
+        {
 
-            for (int i = 0; i < 21; i++) {
-                try {
+            for (int i = 0; i < 21; i++)
+            {
+                try
+                {
                     dictionary.Add(i.ToString(), i);
-                } catch (ArgumentException) {
+                }
+                catch (ArgumentException)
+                {
                     Console.WriteLine("{0}. key már szerepel a dictionaryben. ", i + "\n");
                 }
             }
@@ -140,68 +147,71 @@ namespace beadando_Keresztes_B
 
 
         }
-       
+
 
         public static void ArrayGenerator()
         {
             string[] keysArray = concdictionary.Keys.ToArray();
-            Dict.Eredmenyek.eredmenyekArray = keysArray;
+            Eredmenyek.eredmenyekArray = keysArray;
             Console.WriteLine("A tömb elemei: \n");
             foreach (var item in keysArray)
             {
                 Console.WriteLine(item.ToString() + "\n");
             }
 
+
         }
-        public static class Eredmenyek
+    }
+    public static class Eredmenyek
+    {
+        public static string[] eredmenyekArray;
+        public static void Kiir()
         {
-            public static string[] eredmenyekArray;
-            public static void Kiir()
+            Console.WriteLine("eredmenyekArray elemei: \n");
+            foreach (var item in eredmenyekArray)
             {
-                Console.WriteLine("eredmenyekArray elemei: \n");
-                foreach(var item in eredmenyekArray)
-                {
-                    Console.WriteLine(item.ToString() + "\n");
-                }
+                Console.WriteLine(item.ToString() + "\n");
             }
         }
-        public static class Program {
-            static string[] keyElements = Dict.Eredmenyek.eredmenyekArray;
+    }
+    public static class Program
+    {
+        static string[] keyElements = Eredmenyek.eredmenyekArray;
 
 
-            public static void Form()
-            {
-                System.IO.File.WriteAllLines(@"C:\\Users\\keres\\Desktop\\beadando\\form.txt", keyElements);
+        public static void Form()
+        {
+            System.IO.File.WriteAllLines(@"C:\\Users\\keres\\Desktop\\beadando\\form.txt", keyElements);
 
-            }
-            public  class FileWrite
-            {
-                public void WriteData()
-                {
-                    FileStream fs = new FileStream(@"C:\\Users\\keres\\Desktop\\beadando\\readwrite.txt", FileMode.Append, FileAccess.Write);
-                    StreamWriter sw = new StreamWriter(fs);
-                    Console.WriteLine("Irja be a fájlba a szöveget");
-                    string str = Console.ReadLine();
-                    sw.WriteLine(str);
-                    sw.Flush();
-                    sw.Close();
-                    fs.Close();
-                }
-                public void ReadData()
-                {
-                    string[] lines = File.ReadAllLines(@"C:\\Users\\keres\\Desktop\\beadando\\readwrite.txt");
-                    foreach(string line in lines)
-                    {
-                        Console.WriteLine(line);
-                    }
-                    
-
-                    }
-                }
-            }
-            
-            
         }
-        
+        public class FileWrite
+        {
+            public void WriteData()
+            {
+                FileStream fs = new FileStream(@"C:\\Users\\keres\\Desktop\\beadando\\readwrite.txt", FileMode.Append, FileAccess.Write);
+                StreamWriter sw = new StreamWriter(fs);
+                Console.WriteLine("Irja be a fájlba a szöveget");
+                string str = Console.ReadLine();
+                sw.WriteLine(str);
+                sw.Flush();
+                sw.Close();
+                fs.Close();
+            }
+            public void ReadData()
+            {
+                string[] lines = File.ReadAllLines(@"C:\\Users\\keres\\Desktop\\beadando\\readwrite.txt");
+                foreach (string line in lines)
+                {
+                    Console.WriteLine(line);
+                }
+
+
+            }
+        }
+    }
+
+
 }
+
+
 
